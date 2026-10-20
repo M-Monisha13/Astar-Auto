@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="icon" type="image/png" sizes="512x512" href="assets/favicon-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<link rel="stylesheet" href="_ds/nocturne-2e6ff304-e06c-4f2c-b463-23f1f12e61a8/styles.css">
+<script src="_ds/nocturne-2e6ff304-e06c-4f2c-b463-23f1f12e61a8/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  html, body, #dc-root, .sc-host { height: auto; min-height: 100%; }
+  body { margin: 0; background: var(--color-bg); color: var(--color-text);
+    font-family: var(--font-body); font-size: 16px; line-height: 26px; text-wrap: pretty; }
+  a { color: var(--color-accent); text-decoration: none; }
+  a:hover { color: var(--color-accent-300); }
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  @keyframes astar-drive { from { transform: translateX(-360px); } to { transform: translateX(100vw); } }
+  @media (prefers-reduced-motion: reduce) { .astar-car { animation: none !important; transform: translateX(8vw) !important; } }
+  @keyframes astar-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .astar-marquee-track { animation: none !important; } }
+</style>
+</helmet>
+
+<nav id="top" class="nav" style="position: sticky; top: 0; z-index: 30; padding-inline: max(24px, calc((100% - 1160px) / 2 + 24px)); gap: 28px; flex-wrap: wrap; background: color-mix(in srgb, var(--color-bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-divider)">
+  <a href="#top" class="nav-brand" style="display: flex; align-items: center; gap: 14px; padding: 10px 0; text-decoration: none">
+    <img src="assets/astar-auto-mark.png" alt="" style="height: 30px; width: 56px; object-fit: contain; display: block">
+    <span style="display: block">
+      <span style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text)">Astar</span>
+      <span style="display: flex; align-items: center; gap: 8px; margin-top: 6px">
+        <span style="width: 16px; height: 1px; background: var(--color-accent)"></span>
+        <span style="font-family: var(--font-heading); font-weight: 500; font-size: 10px; line-height: 1; letter-spacing: 0.44em; text-transform: uppercase; color: var(--color-accent)">AUTO</span>
+        <span style="flex: 1; height: 1px; background: linear-gradient(to right, var(--color-accent), transparent)"></span>
+      </span>
+    </span>
+  </a>
+  <span style="flex: 1"></span>
+  <a href="#about" style="font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); white-space: nowrap" style-hover="color: var(--color-text)">About</a>
+  <a href="#services" style="font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); white-space: nowrap" style-hover="color: var(--color-text)">Services</a>
+  <a href="#quote" class="btn btn-primary" style="text-decoration: none; white-space: nowrap">Request a quote</a>
+</nav>
+
+<div style="overflow: hidden; border-bottom: 1px solid var(--color-divider); padding: 9px 0; background: color-mix(in srgb, var(--color-accent) 8%, transparent)">
+  <div class="astar-marquee-track" style="display: flex; width: max-content; animation: astar-marquee 60s linear infinite">
+    <sc-for list="{{ marquee }}" as="m" hint-placeholder-count="6">
+      <span style="font-size: 11px; line-height: 16px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent-300); padding-right: 56px; white-space: nowrap">Car detailing &amp; professional cleaning · Free quotes · Same-week slots open</span>
+    </sc-for>
+  </div>
+</div>
+
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 24px)">
+
+  <section style="padding: 96px 0 72px; position: relative">
+    <div style="position: absolute; top: -120px; left: -180px; width: 620px; height: 420px; border-radius: 50%; background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent) 22%, transparent), transparent); filter: blur(40px); pointer-events: none"></div>
+    <div data-reveal="" style="position: relative">
+      <span style="display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)"><span style="width: 28px; height: 1px; background: var(--color-accent)"></span>Car detailing &amp; professional cleaning</span>
+      <h1 style="font-family: var(--font-heading); font-weight: 500; font-size: clamp(42px, 6.4vw, 84px); line-height: 1.03; letter-spacing: -0.035em; margin: 28px 0 0; max-width: 15ch">Your car, returned better than the day you bought it.</h1>
+      <p style="font-size: 18px; line-height: 30px; max-width: 56ch; margin: 28px 0 0; color: var(--color-neutral-300)">Astar Auto is a detailing service, not a car wash. We work panel by panel — decontaminate, correct, protect — and we do the inside with the same patience. Book a slot, tell us the car, and we'll tell you exactly what it needs and what it costs.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px">
+        <a href="#quote" class="btn btn-primary" style="text-decoration: none">Request a quote</a>
+        <a href="tel:+61466251313" class="btn btn-secondary" style="text-decoration: none">Call 0466 251 313</a>
+      </div>
+    </div>
+    <div data-reveal="" style="margin-top: 56px; position: relative">
+      <span class="lighten" style="display: block; border-radius: var(--radius-md, 8px); overflow: hidden"><image-slot id="astar-auto-hero" shape="rect" style="width: 100%; aspect-ratio: 21 / 9" placeholder="Drop a wide hero photo — a detailed car on a dark background"></image-slot></span>
+    </div>
+  </section>
+
+  <sc-if value="{{ showSpecStrip }}" hint-placeholder-val="{{ true }}">
+  <section data-reveal="" style="border-top: 1px solid var(--color-divider)">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--color-divider)">
+      <div style="background: var(--color-bg); padding: 28px 24px 32px 0">
+        <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent)">Where</span>
+        <span style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 28px; line-height: 34px; letter-spacing: -0.02em; margin-top: 12px">Truganina</span>
+        <span style="display: block; font-size: 14px; line-height: 22px; margin-top: 8px; color: var(--color-neutral-400)">18/2 Fastline Drive , Near Boundary Rd</span>
+      </div>
+      <div style="background: var(--color-bg); padding: 28px 24px 32px">
+        <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent)">Contact</span>
+        <span style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 28px; line-height: 34px; letter-spacing: -0.02em; margin-top: 12px">0466 251 313</span>
+        <span style="display: block; font-size: 14px; line-height: 22px; margin-top: 8px; color: var(--color-neutral-400)">Call us, Message or WhatsApp</span>
+      </div>
+      <div style="background: var(--color-bg); padding: 28px 24px 32px">
+        <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-accent)">Open</span>
+        <span style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 28px; line-height: 34px; letter-spacing: -0.02em; margin-top: 12px">Mon — Sat</span>
+        <span style="display: block; font-size: 14px; line-height: 22px; margin-top: 8px; color: var(--color-neutral-400)">7am to 7pm, Sunday on request</span>
+      </div>
+      
+    </div>
+  </section>
+  </sc-if>
+
+  <section id="about" data-reveal="" style="border-top: 1px solid var(--color-divider); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px clamp(24px, 5vw, 80px); align-items: start; padding: 72px 0 80px">
+    <div>
+      <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">About</span>
+      <h2 style="font-family: var(--font-heading); font-weight: 500; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.1; letter-spacing: -0.025em; margin: 18px 0 0; max-width: 18ch">Slow work, on one car at a time</h2>
+      <p style="font-size: 16px; line-height: 27px; margin: 24px 0 0; max-width: 48ch; color: var(--color-neutral-300)">We book a limited number of cars a day on purpose. Every job starts with a walk-around so you know what we found and what we plan to do about it, and finishes with a hand-over so you can see it in daylight.</p>
+      <p style="font-size: 16px; line-height: 27px; margin: 18px 0 0; max-width: 48ch; color: var(--color-neutral-300)">Everything we use is pH-neutral, interior-safe and tested on the paint before it touches the panel. Fully insured.</p>
+      <h3 style="font-family: var(--font-heading); font-weight: 500; font-size: 18px; line-height: 26px; margin: 36px 0 0">While you wait</h3>
+      <p style="font-size: 15px; line-height: 24px; margin: 10px 0 0; max-width: 46ch; color: var(--color-neutral-400)">Stay while we work on the car. There is somewhere to get things done and somewhere to switch off.</p>
+      <ul style="margin: 20px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px 24px; font-size: 15px; line-height: 23px; color: var(--color-neutral-300)">
+        <li><span style="color: var(--color-accent); margin-right: 10px">—</span>Work-from-home office setup</li>
+        <li><span style="color: var(--color-accent); margin-right: 10px">—</span>Pool table upstairs</li>
+        <li><span style="color: var(--color-accent); margin-right: 10px">—</span>Coffee machine</li>
+        <li><span style="color: var(--color-accent); margin-right: 10px">—</span>PlayStation</li>
+      </ul>
+    </div>
+    <span class="lighten" style="display: block; border-radius: 8px; overflow: hidden"><image-slot id="astar-auto-about-1" shape="rect" style="width: 100%; aspect-ratio: 4 / 5" placeholder="Drop a photo of the work"></image-slot></span>
+  </section>
+
+</div>
+
+<div style="position: relative; overflow: hidden; height: 92px">
+  <div style="position: absolute; left: 0; right: 0; bottom: 14px; height: 1px; background: linear-gradient(to right, transparent, var(--color-accent-700) 12%, var(--color-accent-700) 88%, transparent)"></div>
+  <div class="astar-car" style="position: absolute; left: 0; bottom: 8px; display: flex; align-items: center; animation: astar-drive 14s linear infinite; animation-delay: -7s">
+    <a href="#quote" style="display: block; margin-bottom: 18px; margin-right: -4px; padding: 12px 22px 14px 16px; background: linear-gradient(225deg, transparent 12px, var(--color-accent-200) 12px); border-radius: 2px 2px 2px 2px; box-shadow: 3px 6px 12px color-mix(in srgb, black 40%, transparent); transform: rotate(-4deg); transform-origin: right center; font-family: var(--font-heading); font-size: 15px; font-weight: 500; line-height: 20px; letter-spacing: 0.04em; color: var(--color-bg); text-decoration: none; white-space: nowrap; position: relative" style-hover="background: linear-gradient(225deg, transparent 12px, var(--color-accent-100) 12px); color: var(--color-bg)">Book now<span style="display: block; font-size: 11px; font-weight: 500; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; opacity: 1; color: var(--color-bg)">Free quote</span></a>
+    <img src="assets/vehicle.gif" alt="" style="display: block">
+  </div>
+</div>
+
+<div style="max-width: 1160px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 24px)">
+
+  <section id="services" data-reveal="" style="padding: 72px 0 80px">
+    <div style="display: flex; align-items: center; gap: 20px clamp(16px, 3vw, 36px); flex-wrap: wrap; margin-bottom: 44px">
+      <div style="flex: 1; min-width: 260px">
+    <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Services</span>
+    <h2 style="font-family: var(--font-heading); font-weight: 500; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.1; letter-spacing: -0.025em; margin: 18px 0 0; max-width: 20ch">Pick the level of work the car actually needs</h2>
+    <p style="font-size: 16px; line-height: 27px; margin: 20px 0 0; max-width: 52ch; color: var(--color-neutral-400)">Starting prices are rough estimates for small cars with light to medium detailing. Select a service to see what is included, what is not, and the add-ons.</p>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0; background: var(--color-bg); border-top: 1px solid var(--color-divider)">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="6">
+        <button type="button" onClick="{{ s.open }}" style="appearance: none; border: 0; margin: 0; width: 100%; text-align: left; font: inherit; color: inherit; cursor: pointer; background: var(--color-bg); box-shadow: inset -1px -1px 0 var(--color-divider); padding: 30px 26px 30px; display: flex; flex-direction: column; gap: 14px" style-hover="background: var(--color-surface)">
+          <span style="display: flex; align-items: baseline; justify-content: space-between; gap: 16px; width: 100%">
+            <span style="font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--color-neutral-400)">{{ s.no }}</span>
+            <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}">
+              <span style="font-family: var(--font-heading); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; color: var(--color-accent)">{{ s.price }}</span>
+            </sc-if>
+          </span>
+          <span style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 20px; line-height: 26px; letter-spacing: -0.015em">{{ s.title }}</span>
+          <span style="display: block; font-size: 14px; line-height: 22px; color: var(--color-neutral-300)">{{ s.blurb }}</span>
+          <span style="display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 6px; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent-300)"><span style="display: block; width: 24px; height: 1px; background: var(--color-accent)"></span>View details</span>
+        </button>
+      </sc-for>
+    </div>
+  </section>
+</div>
+
+<div style="position: relative; overflow: hidden; height: 92px">
+  <div style="position: absolute; left: 0; right: 0; bottom: 14px; height: 1px; background: linear-gradient(to right, transparent, var(--color-accent-700) 12%, var(--color-accent-700) 88%, transparent)"></div>
+  <div class="astar-car" style="position: absolute; left: 0; bottom: 8px; display: flex; align-items: center; animation: astar-drive 14s linear infinite">
+    <a href="#quote" style="display: block; margin-bottom: 18px; margin-right: -4px; padding: 12px 22px 14px 16px; background: linear-gradient(225deg, transparent 12px, var(--color-accent-200) 12px); border-radius: 2px 2px 2px 2px; box-shadow: 3px 6px 12px color-mix(in srgb, black 40%, transparent); transform: rotate(-4deg); transform-origin: right center; font-family: var(--font-heading); font-size: 15px; font-weight: 500; line-height: 20px; letter-spacing: 0.04em; color: var(--color-bg); text-decoration: none; white-space: nowrap; position: relative" style-hover="background: linear-gradient(225deg, transparent 12px, var(--color-accent-100) 12px); color: var(--color-bg)">Book now<span style="display: block; font-size: 11px; font-weight: 500; line-height: 16px; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; opacity: 1; color: var(--color-bg)">Free quote</span></a>
+    <img src="assets/vehicle.gif" alt="" style="display: block">
+  </div>
+</div>
+
+<section id="quote" data-reveal="" style="background: var(--color-section); background-image: radial-gradient(1200px 400px at 20% 0%, var(--color-section-glow), transparent); border-top: 1px solid var(--color-divider)">
+  <div style="max-width: 1160px; margin: 0 auto; padding: 76px clamp(20px, 5vw, 24px) 84px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 48px clamp(24px, 6vw, 88px); align-items: start">
+    <div>
+      <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-200)">Request a quote</span>
+      <h2 style="font-family: var(--font-heading); font-weight: 500; font-size: clamp(32px, 4.4vw, 56px); line-height: 1.04; letter-spacing: -0.03em; margin: 20px 0 0; max-width: 16ch">Tell us the car. We'll price the job.</h2>
+      <p style="font-size: 17px; line-height: 28px; margin: 24px 0 0; max-width: 44ch; color: var(--color-neutral-200)">Send the make, model and rough condition and you'll get a fixed price back the same day. No deposit to hold a slot.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px">
+        <a href="tel:+61466251313" class="btn btn-secondary" style="text-decoration: none">˗ˏˋ ☏ ˎˊ˗ Call</a>
+        <a href="https://wa.me/61466251313" target="_blank" rel="noopener" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"></path></svg>WhatsApp</a>
+        <a href="mailto:astarautoexperts@gmail.com" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.5 7l8.5 6.5L20.5 7"></path></svg>Email</a>
+      </div>
+    </div>
+    <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
+    <form onSubmit="{{ submit }}" style="display: grid; gap: 16px; background: color-mix(in srgb, var(--color-bg) 62%, transparent); border: 1px solid var(--color-divider); border-radius: 10px; padding: 28px">
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Name</span>
+        <input class="input" type="text" name="name" required="" placeholder="Your name">
+      </label>
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Phone or email</span>
+        <input class="input" type="text" name="contact" required="" placeholder="How we reach you">
+      </label>
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Vehicle</span>
+        <input class="input" type="text" name="vehicle" placeholder="Make, model, year">
+      </label>
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">What it needs</span>
+        <textarea class="input" name="notes" rows="3" placeholder="Exterior, interior, or both — and anything we should know"></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary" style="justify-self: start; margin-top: 4px">Send request</button>
+    </form>
+    </sc-if>
+    <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+    <div style="background: color-mix(in srgb, var(--color-bg) 62%, transparent); border: 1px solid var(--color-accent); border-radius: 10px; padding: 40px 28px; display: grid; gap: 14px; align-content: start">
+      <span style="display: block; width: 40px; height: 1px; background: var(--color-accent)"></span>
+      <h3 style="font-family: var(--font-heading); font-weight: 500; font-size: 24px; line-height: 30px; margin: 0">Request received</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 24px; color: var(--color-neutral-200)">We'll come back with a fixed price today. If it's urgent, call 0400 000 000.</p>
+      <button type="button" class="btn btn-ghost" onClick="{{ reset }}" style="justify-self: start; margin-top: 8px">Send another</button>
+    </div>
+    </sc-if>
+  </div>
+</section>
+
+<sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ close }}" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: flex-start; justify-content: center; padding: clamp(12px, 4vh, 48px) clamp(12px, 3vw, 32px); background: color-mix(in srgb, var(--color-bg) 82%, black); overflow-y: auto; backdrop-filter: blur(6px)">
+  <div role="dialog" aria-modal="true" aria-label="{{ active.title }}" onClick="{{ stop }}" style="position: relative; width: 100%; max-width: 920px; background: var(--color-bg); border: 1px solid var(--color-divider); border-radius: 12px; box-shadow: var(--shadow-lg); overflow: hidden">
+    <button type="button" onClick="{{ close }}" aria-label="Close" style="position: absolute; top: 14px; right: 14px; z-index: 2; appearance: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--color-divider); background: color-mix(in srgb, var(--color-bg) 80%, transparent); color: var(--color-text); cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px)" style-hover="border-color: var(--color-accent)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+    <span style="display: block; border-bottom: 1px solid var(--color-divider)"><image-slot id="{{ active.slotId }}" shape="rect" style="width: 100%; aspect-ratio: 21 / 9" placeholder="Drop a photo for this service"></image-slot></span>
+    <div style="padding: clamp(22px, 4vw, 40px)">
+      <span style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap">
+        <span style="font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Service {{ active.no }}</span>
+        <span style="font-family: var(--font-heading); font-size: 15px; font-weight: 500; letter-spacing: 0.04em; color: var(--color-accent-300)">{{ active.price }}</span>
+      </span>
+      <h3 style="font-family: var(--font-heading); font-weight: 500; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.025em; margin: 14px 0 0; max-width: 24ch">{{ active.title }}</h3>
+      <p style="font-size: 16px; line-height: 26px; margin: 16px 0 0; max-width: 60ch; color: var(--color-neutral-300)">{{ active.blurb }}</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 32px clamp(24px, 4vw, 56px); margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--color-divider)">
+        <sc-if value="{{ active.hasInc }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Inclusions</span>
+          <ul style="margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; font-size: 14px; line-height: 21px; color: var(--color-neutral-200)">
+            <sc-for list="{{ active.inc }}" as="t" hint-placeholder-count="5"><li style="display: flex; gap: 10px"><span style="color: var(--color-accent)">—</span><span>{{ t }}</span></li></sc-for>
+          </ul>
+        </div>
+        </sc-if>
+        <div style="display: grid; gap: 28px; align-content: start">
+          <sc-if value="{{ active.hasExc }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Exclusions</span>
+            <ul style="margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; font-size: 14px; line-height: 21px; color: var(--color-neutral-300)">
+              <sc-for list="{{ active.exc }}" as="t" hint-placeholder-count="2"><li style="display: flex; gap: 10px"><span style="color: var(--color-neutral-400)">—</span><span>{{ t }}</span></li></sc-for>
+            </ul>
+          </div>
+          </sc-if>
+          <sc-if value="{{ active.hasAdd }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Add-ons</span>
+            <ul style="margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; font-size: 14px; line-height: 21px; color: var(--color-neutral-200)">
+              <sc-for list="{{ active.add }}" as="t" hint-placeholder-count="4"><li style="display: flex; gap: 10px"><span style="color: var(--color-accent)">+</span><span>{{ t }}</span></li></sc-for>
+            </ul>
+          </div>
+          </sc-if>
+        </div>
+      </div>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px">
+        <a href="#quote" onClick="{{ close }}" class="btn btn-primary" style="text-decoration: none">Request a quote</a>
+        <button type="button" onClick="{{ close }}" class="btn btn-ghost">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<footer style="max-width: 1160px; margin: 0 auto; padding: 40px clamp(20px, 5vw, 24px) 52px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; justify-content: space-between; font-size: 13px; line-height: 22px; color: var(--color-neutral-400)">
+  <img src="assets/astar-auto-logo.png" alt="Astar Auto — clean, protect, shine" style="height: 104px; width: auto; object-fit: contain; display: block">
+  <span style="text-transform: none; letter-spacing: 0.06em; font-size: 12px">Copyright© 2026 All rights reserved. Design &amp; Developed by Astar Infotech</span>
+  <span style="display: flex; align-items: center; gap: 18px; align-self: flex-end">
+    <a href="https://instagram.com/astarauto" target="_blank" rel="noopener" aria-label="Instagram" style="display: block; color: var(--color-neutral-400)" style-hover="color: var(--color-accent)"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913a5.885 5.885 0 0 0 1.384 2.126A5.868 5.868 0 0 0 4.14 23.37c.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558a5.898 5.898 0 0 0 2.126-1.384 5.86 5.86 0 0 0 1.384-2.126c.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913a5.89 5.89 0 0 0-1.384-2.126A5.847 5.847 0 0 0 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.9.419.418.679.816.896 1.378.164.422.361 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227a3.81 3.81 0 0 1-.899 1.382 3.744 3.744 0 0 1-1.38.896c-.42.164-1.065.361-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421a3.716 3.716 0 0 1-1.379-.899 3.644 3.644 0 0 1-.9-1.38c-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 1 0 0-12.324zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405a1.441 1.441 0 0 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"></path></svg></a>
+    <a href="https://facebook.com/astarauto" target="_blank" rel="noopener" aria-label="Facebook" style="display: block; color: var(--color-neutral-400)" style-hover="color: var(--color-accent)"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"></path></svg></a>
+    <a href="https://tiktok.com/@astarauto" target="_blank" rel="noopener" aria-label="TikTok" style="display: block; color: var(--color-neutral-400)" style-hover="color: var(--color-accent)"><svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"></path></svg></a>
+    <a href="https://youtube.com/@astarauto" target="_blank" rel="noopener" aria-label="YouTube" style="display: block; color: var(--color-neutral-400)" style-hover="color: var(--color-accent)"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg></a>
+  </span>
+  <span style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; flex-basis: 100%; padding-top: 22px; border-top: 1px solid var(--color-divider)">
+    <button type="button" onClick="{{ openTerms }}" style="appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); cursor: pointer" style-hover="color: var(--color-accent)">Terms &amp; Conditions</button>
+    <button type="button" onClick="{{ openFaq }}" style="appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); cursor: pointer" style-hover="color: var(--color-accent)">FAQ</button>
+    <button type="button" onClick="{{ openFeedback }}" style="appearance: none; background: none; border: 0; padding: 0; margin: 0; font: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); cursor: pointer" style-hover="color: var(--color-accent)">Feedback</button>
+    <span style="display: flex; align-items: center; gap: 16px; margin: -24px 0 -24px auto">
+      <a href="{{ reviewUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border: 1px solid var(--color-accent); border-radius: 8px; font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; line-height: 16px; color: var(--color-accent-200); text-decoration: none; white-space: nowrap" style-hover="background: color-mix(in srgb, var(--color-accent) 16%, transparent)"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"></path></svg>Review us</a>
+      <img src="assets/car-wash.gif" alt="" style="display: block; width: 96px; height: 96px">
+    </span>
+  </span>
+</footer>
+
+<sc-if value="{{ infoOpen }}" hint-placeholder-val="{{ false }}">
+<div onClick="{{ closeInfo }}" style="position: fixed; inset: 0; z-index: 110; display: flex; align-items: flex-start; justify-content: center; padding: clamp(12px, 6vh, 64px) clamp(12px, 3vw, 32px); background: color-mix(in srgb, var(--color-bg) 82%, black); overflow-y: auto; backdrop-filter: blur(6px)">
+  <div role="dialog" aria-modal="true" aria-label="{{ infoTitle }}" onClick="{{ stop }}" style="position: relative; width: 100%; max-width: 680px; background: var(--color-bg); border: 1px solid var(--color-divider); border-radius: 12px; box-shadow: var(--shadow-lg); padding: clamp(24px, 4vw, 40px)">
+    <button type="button" onClick="{{ closeInfo }}" aria-label="Close" style="position: absolute; top: 14px; right: 14px; appearance: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--color-divider); background: transparent; color: var(--color-text); cursor: pointer; display: flex; align-items: center; justify-content: center" style-hover="border-color: var(--color-accent)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+    <span style="display: block; width: 40px; height: 1px; background: var(--color-accent)"></span>
+    <h3 style="font-family: var(--font-heading); font-weight: 500; font-size: clamp(24px, 3vw, 34px); line-height: 1.1; letter-spacing: -0.025em; margin: 18px 0 0; padding-right: 48px">{{ infoTitle }}</h3>
+    <sc-if value="{{ isTerms }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; gap: 22px; margin-top: 28px">
+        <sc-for list="{{ terms }}" as="t" hint-placeholder-count="6">
+          <div><span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">{{ t.h }}</span><p style="margin: 8px 0 0; font-size: 15px; line-height: 24px; color: var(--color-neutral-300)">{{ t.p }}</p></div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isFaq }}" hint-placeholder-val="{{ false }}">
+      <div style="display: grid; gap: 22px; margin-top: 28px">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+          <div><span style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 17px; line-height: 24px">{{ f.q }}</span><p style="margin: 8px 0 0; font-size: 15px; line-height: 24px; color: var(--color-neutral-300)">{{ f.a }}</p></div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isFeedback }}" hint-placeholder-val="{{ false }}">
+      <p style="margin: 16px 0 0; font-size: 15px; line-height: 24px; color: var(--color-neutral-300); max-width: 46ch">Tell us how we did, or leave a public review to help others find us.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px">
+        <a href="https://wa.me/61466251313" target="_blank" rel="noopener" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"></path></svg>WhatsApp</a>
+        <a href="mailto:astarautoexperts@gmail.com" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3.5 7l8.5 6.5L20.5 7"></path></svg>Email</a>
+        <a href="{{ reviewUrl }}" target="_blank" rel="noopener" class="btn btn-primary" style="text-decoration: none">Review us on Google</a>
+      </div>
+      <p style="margin: 22px 0 0; font-size: 14px; line-height: 22px; color: var(--color-neutral-400)">WhatsApp 0466 251 313 · astarautoexperts@gmail.com</p>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Services&quot;},&quot;showSpecStrip&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
+const STD_EXC = ["Starting price is a rough estimate for small cars with light to medium detailing. Heavy detailing work incurs extra charges."];
+const QUOTE_EXC = ["Final price is confirmed after inspection."];
+const TERMS = [
+  { h: "Quotes and pricing", p: "Starting prices are rough estimates for small cars with light to medium detailing. The final price is confirmed after inspection, and heavy detailing work incurs extra charges." },
+  { h: "Bookings", p: "A booking is confirmed once we reply with a time. Please let us know as early as you can if you need to change or cancel." },
+  { h: "Vehicle condition", p: "Stains, pet hair, sand and mould are not removed in standard packages and are available as add-ons. Existing damage such as deep scratches, stonechips and failing paint cannot be corrected by cleaning or polishing." },
+  { h: "Personal items", p: "Please remove valuables and personal items before drop-off. We are not responsible for items left in the vehicle." },
+  { h: "Results", p: "Results depend on the age and condition of the vehicle. We will tell you before we start if we expect a part of the job to fall short." },
+  { h: "Payment", p: "Payment is due on completion unless agreed otherwise in writing." },
+];
+const FAQS = [
+  { q: "How long does a detail take?", a: "A general wash takes about two hours. Full and ultimate details take most of a day, and ceramic coating or paint correction can take one to two days." },
+  { q: "Can I wait while you work on the car?", a: "Yes. We have a work-from-home office setup, a coffee machine, a pool table upstairs and a PlayStation." },
+  { q: "How much will it cost?", a: "Each service lists a starting price for small cars with light to medium detailing. Send us the make, model and condition and we will quote a fixed price." },
+  { q: "Do you remove stains, pet hair and mould?", a: "Not in the standard packages. They are add-ons, so ask for them when you request a quote." },
+  { q: "What does the ceramic coating warranty cover?", a: "Ceramic Paint Protection comes with a lifetime paint protection warranty. Ask us for the full warranty terms with your quote." },
+  { q: "How do I book?", a: "Use the Request a quote form, call 0466 251 313, or message us on WhatsApp." },
+];
+const REVIEW_URL = "https://www.google.com/search?q=Astar+Auto+reviews";
+const std = STD_EXC[0], quote = QUOTE_EXC[0];
+const SERVICES = [
+  { title: "General Wash & Service", price: "Starting $99", blurb: "Exterior wash, interior clean and a finish that holds up. The base service for everyday cars.",
+    inc: ["Premium exterior wash","Paint hydrophobic treatment","Interior vacuum","Carpet and seats steam cleaned (stain, pet hair, sand or mold removal not included)","Dash and plastics wiped off and sanitized","Floor pedals cleaned","Glove box and arm rest storage cleaned","Cabin deodorized and AC disinfected","Door jambs cleaned","Cleaning of plastic door rims","Engine bay washed","Fuel cap cleaned","Tire shine applied","Exterior trim polished","Exterior and interior windows cleaned"],
+    exc: STD_EXC, add: ["Carpets and seats stain removal","Dog hair and sand removal","Roof lining cleaned","Head lights restoration","Engine bay detailed"] },
+  { title: "Full Detail", price: "Starting $270", blurb: "Inside and out, in one visit, with deeper decontamination and a hand-applied finish.",
+    inc: ["Premium exterior wash and paint decontamination","Floor pedals, glove box and arm rest storage cleaned","Hand-applied sealant for gloss and protection","Interior vacuum and steam clean of carpets and seats","Leather cleaned and conditioned","Dash, plastics and vents detailed","Door jambs, boot and fuel cap cleaned","Engine bay detailed","Cabin deodorized and AC disinfected","Tire shine applied","Exterior and interior windows cleaned"],
+    exc: [...STD_EXC, "Stain, pet hair, sand or mold removal is not included."], add: ["Carpets and seats stain removal","Dog hair and sand removal","Roof lining cleaned","Head lights restoration","Clay bar treatment","Triple action 2 stage paint correction"] },
+  { title: "Ultimate Detail", price: "Starting $350", blurb: "Our most complete detail: everything in a full detail plus machine polishing of the paint.",
+    inc: ["# Interior","Trim polished","Carpets and seats shampoo and stain removal","Leather seats conditioned","Plastic door rims cleaned","Interior vacuum and surfaces sanitised","Floor pedals cleaned","Glove box and arm rest storage cleaned","Cabin and AC deodorised","AC vents cleaned","# Exterior","Premium exterior wash","Door jambs cleaned","Cut and polish (triple-action, 1-stage paint correction)","Tier 1 wax application","Exterior trim polished","Engine bay washed","Fuel cap cleaned","Tire shine applied","Door rims cleaned","Windows treated with water repellent"],
+    exc: [...STD_EXC, "Deep scratches and stonechips are not removed by polishing."], add: ["Ceramic paint protection (request quote)","Head lights restoration","Stonechip repair","Roof lining cleaned","Carpets and seats stain removal"] },
+  { title: "Ceramic Paint Protection", price: "Request quote", blurb: "A multi-layer ceramic coating on corrected paint, backed by a lifetime paint protection warranty.",
+    inc: ["Full paint decontamination and prep","Machine polish before coating","Ceramic coating applied to paint","Lifetime paint protection warranty","Hydrophobic finish that makes washing easier","Protection against UV, bird droppings and road film"],
+    exc: [quote, "Deep scratches and stonechips need separate repair."], add: ["Ceramic maintenance wash","Wheel coating","Glass coating","Interior detail"] },
+  { title: "Ceramic Maintenance Wash", price: "Starting $110", blurb: "A careful wash that keeps a ceramic coating performing as it should.",
+    inc: ["pH-neutral hand wash","Coating-safe drying","Wheels, tires and arches cleaned","Exterior windows cleaned","Check of the coating condition","Tire shine applied"],
+    exc: ["For cars with an existing ceramic coating.","Interior is not included."], add: ["Interior vacuum","Interior detail","Head lights restoration"] },
+  { title: "Interior Detail", price: "Starting $150", blurb: "A deep clean of every surface inside the cabin.",
+    inc: ["Trim polished","Carpets and seats shampoo and stain removal","Leather seats conditioned","Plastic door rims cleaned","Interior vacuum and surfaces sanitised","Floor pedals cleaned","Glove box and arm rest storage cleaned","Cabin and AC deodorised","AC vents cleaned","Door jambs cleaned","Interior windows cleaned"],
+    exc: [std, "Pet hair, sand or mold removal is not included."], add: ["Dog hair and sand removal","Roof lining cleaned","Car mould removal"] },
+  { title: "Mini Detail", price: "Starting $195", blurb: "A quick clean for the whole car, inside and out, when it needs a refresh.",
+    inc: ["# Interior","Trim polished","Carpets and seats shampoo and stain removal","Leather seats conditioned","Cleaning of plastic door rims","Interior vacuum and surfaces sanitised","Floor pedals cleaned","Glove box and arm rest storage cleaned","Cabin deodorize and AC odor removal","Cleaning of AC vents","# Exterior","Premium exterior wash","Cleaning of door jambs","Paint hydrophobic treatment","Exterior trim polish","Engine bay wash","Fuel cap cleaned","Tire shine","Cleaning of door rims","Treatment of windows with water repellent"],
+    exc: [], add: ["Carpets and seats stain removal","Dog hair and sand removal","Head lights restoration","Engine bay detailed"] },
+  { title: "Exterior Detail", price: "Starting $195", blurb: "Paint, wheels, glass and trim brought back to a clean, glossy finish.",
+    inc: ["Premium exterior wash","Door jambs cleaned","Cut and polish (triple-action, 1-stage paint correction)","Tier 1 wax application","Exterior trim polished","Engine bay washed","Fuel cap cleaned","Wheels, tires and arches cleaned","Tire shine applied","Exterior windows cleaned and treated with water repellent"],
+    exc: STD_EXC, add: ["Head lights restoration","Stonechip repair","Engine bay detailed","Ceramic maintenance wash","Clay bar treatment","Triple action 2 stage paint correction"] },
+  { title: "Roof Lining Cleanup", price: "Request quote", blurb: "Marks, stains and smells lifted from the headliner without soaking the fabric.",
+    inc: ["Inspection of the headliner","Careful spot and surface clean","Odour treatment"], exc: [quote], add: ["Interior detail","Car mould removal"] },
+  { title: "Stonechip Repair", price: "Request quote", blurb: "Chips on the bonnet and front panels filled and blended back in.",
+    inc: ["Inspection of each chip","Cleaning and prep of the area","Fill and level of the chip","Polish to blend the repair"], exc: [quote, "Colour match is as close as possible but not guaranteed."], add: ["Exterior detail","Ceramic paint protection"] },
+  { title: "Headlights Restoration", price: "Request quote", blurb: "Yellowed, hazy headlights sanded, polished and sealed for clearer light.",
+    inc: ["Wet sanding of the lens","Polish to restore clarity","UV protective coating"], exc: [quote, "Moisture inside the lens or cracked lenses are not covered."], add: ["Exterior detail","General Wash & Service"] },
+  { title: "Flooded Car Cleaning", price: "Request quote", blurb: "Water-damaged interiors cleaned, dried and sanitised.",
+    inc: ["Water and silt extraction","Carpet and seat deep clean","Drying of the cabin","Sanitise and deodorise"], exc: [quote, "Electrical and mechanical damage is not repaired."], add: ["Car mould removal","Roof lining cleaned"] },
+  { title: "Car Window Tinting", price: "Request quote", blurb: "Window tinting adds value, style, privacy, and security to your vehicle while keeping it cooler and reducing the impact of sunlight and UV radiation.",
+    inc: ["Film fitted to selected windows","Clean, bubble-free finish","Window prep and clean"], exc: [quote, "Tint must meet local legal limits."], add: ["Windscreen strip","Exterior detail","Ceramic protection","Paint protection film"] },
+  { title: "Dent Repair", price: "Request quote", blurb: "Minor dents and dings removed without repainting where the paint is intact.",
+    inc: ["Inspection of each dent","Paintless repair where possible","Final polish of the area"], exc: [quote, "Dents with cracked paint may need panel repair."], add: ["Stonechip repair","Exterior detail"] },
+  { title: "Car Mineral Removal", price: "Request quote", blurb: "Water spots and mineral deposits removed from paint and glass.",
+    inc: ["Inspection of paint and glass","Mineral deposit removal","Polish and protect"], exc: [quote, "Etching below the surface may need machine polishing."], add: ["Exterior detail","Ceramic paint protection"] },
+  { title: "Car Mould Removal", price: "Request quote", blurb: "Mould treated at the source and the cabin sanitised.",
+    inc: ["Inspection of affected areas","Mould treatment and removal","Sanitise and deodorise the cabin"], exc: [quote, "Leaks causing the mould are not repaired."], add: ["Interior detail","Roof lining cleaned"] },
+  { title: "Concrete Removal", price: "Request quote", blurb: "Concrete splatter safely lifted from paint, glass and trim.",
+    inc: ["Inspection of affected panels","Careful concrete removal","Polish of the treated area"], exc: [quote, "Paint already damaged by concrete may need repair."], add: ["Exterior detail","Stonechip repair","Ceramic paint protection"] },
+];
+SERVICES.forEach((s, i) => { s.no = String(i + 1).padStart(2, "0"); s.slotId = "astar-auto-svc-" + s.no; s.hasInc = s.inc.length > 0; s.hasExc = s.exc.length > 0; s.hasAdd = s.add.length > 0; });
+
+class Component extends DCLogic {
+  state = { sent: false, open: -1, info: "" };
+  _key = (e) => { if (e.key === "Escape") this.setState({ open: -1, info: "" }); };
+  componentDidMount() {
+    document.addEventListener("keydown", this._key);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const els = Array.from(document.querySelectorAll("[data-reveal]"));
+    if (reduce || !("IntersectionObserver" in window)) return;
+    els.forEach((el) => {
+      el.style.opacity = "0";
+      el.style.transform = "translateY(20px)";
+      el.style.transition = "opacity 700ms cubic-bezier(.22,.7,.3,1), transform 700ms cubic-bezier(.22,.7,.3,1)";
+    });
+    const show = (el) => { el.style.opacity = "1"; el.style.transform = "none"; };
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { show(e.target); this._io.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.05 });
+    els.forEach((el) => this._io.observe(el));
+    this._fallback = setTimeout(() => els.forEach(show), 2500);
+  }
+  componentWillUnmount() { document.removeEventListener("keydown", this._key); document.body.style.overflow = ""; if (this._io) this._io.disconnect(); clearTimeout(this._fallback); }
+  componentDidUpdate() { document.body.style.overflow = (this.state.open >= 0 || this.state.info) ? "hidden" : ""; }
+  renderVals() {
+    return {
+      services: SERVICES.map((s, i) => ({ ...s, open: () => this.setState({ open: i }) })),
+      marquee: [1,2,3,4,5,6],
+      modalOpen: this.state.open >= 0,
+      active: SERVICES[Math.max(this.state.open, 0)],
+      close: () => this.setState({ open: -1 }),
+      stop: (e) => e.stopPropagation(),
+      infoOpen: !!this.state.info,
+      isTerms: this.state.info === "terms",
+      isFaq: this.state.info === "faq",
+      isFeedback: this.state.info === "feedback",
+      infoTitle: { terms: "Terms & Conditions", faq: "Frequently asked questions", feedback: "Feedback" }[this.state.info] || "",
+      terms: TERMS, faqs: FAQS, reviewUrl: REVIEW_URL,
+      openTerms: () => this.setState({ info: "terms" }),
+      openFaq: () => this.setState({ info: "faq" }),
+      openFeedback: () => this.setState({ info: "feedback" }),
+      closeInfo: () => this.setState({ info: "" }),
+      showPrices: this.props.showPrices ?? true,
+      showSpecStrip: this.props.showSpecStrip ?? true,
+      formOpen: !this.state.sent,
+      sent: this.state.sent,
+      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      reset: () => this.setState({ sent: false }),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
