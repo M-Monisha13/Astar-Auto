@@ -19,6 +19,17 @@
 <script src="./image-slot.js"></script>
 <style>
   html { scroll-behavior: smooth; }
+  @media (max-width: 520px) {
+    .astar-nav { flex-wrap: nowrap !important; justify-content: space-between !important; gap: 10px !important; padding-inline: 14px !important; }
+    .astar-spacer { display: none !important; }
+    .astar-brand { gap: 6px !important; padding: 8px 0 !important; flex: none !important; }
+    .astar-mark { height: 20px !important; width: 34px !important; }
+    .astar-word { font-size: 15px !important; letter-spacing: 0.14em !important; }
+    .astar-sub { font-size: 8px !important; letter-spacing: 0.34em !important; }
+    .astar-link { font-size: 11px !important; letter-spacing: 0.06em !important; }
+    .astar-cta { padding: 7px 10px !important; font-size: 11px !important; letter-spacing: 0.04em !important; }
+    .astar-hide-sm { display: none !important; }
+  }
   html, body, #dc-root, .sc-host { height: auto; min-height: 100%; }
   body { margin: 0; background: var(--color-bg); color: var(--color-text);
     font-family: var(--font-body); font-size: 16px; line-height: 26px; text-wrap: pretty; }
@@ -32,22 +43,22 @@
 </style>
 </helmet>
 
-<nav id="top" class="nav" style="position: sticky; top: 0; z-index: 30; padding-inline: max(24px, calc((100% - 1160px) / 2 + 24px)); gap: 28px; flex-wrap: wrap; background: color-mix(in srgb, var(--color-bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-divider)">
-  <a href="#top" class="nav-brand" style="display: flex; align-items: center; gap: 14px; padding: 10px 0; text-decoration: none">
-    <img src="assets/astar-auto-mark.png" alt="" style="height: 30px; width: 56px; object-fit: contain; display: block">
+<nav id="top" class="nav astar-nav" style="position: sticky; top: 0; z-index: 30; padding-inline: max(24px, calc((100% - 1160px) / 2 + 24px)); gap: 28px; flex-wrap: wrap; background: color-mix(in srgb, var(--color-bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--color-divider)">
+  <a href="#top" class="nav-brand astar-brand" style="display: flex; align-items: center; gap: 14px; padding: 10px 0; text-decoration: none">
+    <img class="astar-mark" src="assets/astar-auto-mark.png" alt="" style="height: 30px; width: 56px; object-fit: contain; display: block">
     <span style="display: block">
-      <span style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text)">Astar</span>
+      <span class="astar-word" style="display: block; font-family: var(--font-heading); font-weight: 500; font-size: 22px; line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-text)">Astar</span>
       <span style="display: flex; align-items: center; gap: 8px; margin-top: 6px">
         <span style="width: 16px; height: 1px; background: var(--color-accent)"></span>
-        <span style="font-family: var(--font-heading); font-weight: 500; font-size: 10px; line-height: 1; letter-spacing: 0.44em; text-transform: uppercase; color: var(--color-accent)">AUTO</span>
+        <span class="astar-sub" style="font-family: var(--font-heading); font-weight: 500; font-size: 10px; line-height: 1; letter-spacing: 0.44em; text-transform: uppercase; color: var(--color-accent)">AUTO</span>
         <span style="flex: 1; height: 1px; background: linear-gradient(to right, var(--color-accent), transparent)"></span>
       </span>
     </span>
   </a>
-  <span style="flex: 1"></span>
-  <a href="#about" style="font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); white-space: nowrap" style-hover="color: var(--color-text)">About</a>
-  <a href="#services" style="font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); white-space: nowrap" style-hover="color: var(--color-text)">Services</a>
-  <a href="#quote" class="btn btn-primary" style="text-decoration: none; white-space: nowrap">Request a quote</a>
+  <span class="astar-spacer" style="flex: 1"></span>
+  <a href="#about" class="astar-link" style="font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); white-space: nowrap" style-hover="color: var(--color-text)">About</a>
+  <a href="#services" class="astar-link" style="font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-neutral-300); white-space: nowrap" style-hover="color: var(--color-text)">Services</a>
+  <a href="#quote" class="btn btn-primary astar-cta" style="text-decoration: none; white-space: nowrap">Request <span class="astar-hide-sm">a </span>quote</a>
 </nav>
 
 <div style="overflow: hidden; border-bottom: 1px solid var(--color-divider); padding: 9px 0; background: color-mix(in srgb, var(--color-accent) 8%, transparent)">
