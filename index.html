@@ -313,6 +313,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Services&quot;},&quot;showSpecStrip&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 const STD_EXC = ["Starting price is a rough estimate for small cars with light to medium detailing. Heavy detailing work incurs extra charges."];
 const QUOTE_EXC = ["Final price is confirmed after inspection."];
+const WEB3FORMS_KEY = "d6edaaec-b7fa-4b05-b5fa-c474d542ae38";
 const TERMS = [
   { h: "Quotes and pricing", p: "Starting prices are rough estimates for small cars with light to medium detailing. The final price is confirmed after inspection, and heavy detailing work incurs extra charges." },
   { h: "Bookings", p: "A booking is confirmed once we reply with a time. Please let us know as early as you can if you need to change or cancel." },
@@ -375,10 +376,10 @@ const SERVICES = [
   { title: "Concrete Removal", price: "Request quote", blurb: "Concrete splatter safely lifted from paint, glass and trim.",
     inc: ["Inspection of affected panels","Careful concrete removal","Polish of the treated area"], exc: [quote, "Paint already damaged by concrete may need repair."], add: ["Exterior detail","Stonechip repair","Ceramic paint protection"] },
 ];
-SERVICES.forEach((s, i) => { s.no = String(i + 1).padStart(2, "0"); s.slotId = "astar-auto-svc-" + s.no; s.hasInc = s.inc.length > 0; s.hasExc = s.exc.length > 0; s.hasAdd = s.add.length > 0; });
+SERVICES.forEach((s, i) => { s.inc = s.inc.map((t) => t.startsWith("# ") ? { text: t.slice(2), mark: "", style: "display: block; margin-top: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-300)", textStyle: "display: block" } : { text: t, mark: "\u2014", style: "display: flex; gap: 10px", textStyle: "display: block" }); s.no = String(i + 1).padStart(2, "0"); s.slotId = "astar-auto-svc-" + s.no; s.hasInc = s.inc.length > 0; s.hasExc = s.exc.length > 0; s.hasAdd = s.add.length > 0; });
 
 class Component extends DCLogic {
-  state = { sent: false, open: -1, info: "" };
+  state = { sent: false, open: -1, info: "", sending: false, error: "" };
   _key = (e) => { if (e.key === "Escape") this.setState({ open: -1, info: "" }); };
   componentDidMount() {
     document.addEventListener("keydown", this._key);
@@ -421,7 +422,22 @@ class Component extends DCLogic {
       showSpecStrip: this.props.showSpecStrip ?? true,
       formOpen: !this.state.sent,
       sent: this.state.sent,
-      submit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
+      sendLabel: this.state.sending ? "Sending…" : "Send request",
+      hasError: !!this.state.error,
+      errorText: this.state.error,
+      submit: async (e) => {
+        e.preventDefault();
+        if (this.state.sending) return;
+        if (!WEB3FORMS_KEY) { this.setState({ error: "The form is not connected to email yet. Add your Web3Forms access key in the script." }); return; }
+        const fd = new FormData(e.target);
+        this.setState({ sending: true, error: "" });
+        try {
+          const r = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: "New quote request from " + fd.get("name"), from_name: "Astar Auto website", name: fd.get("name"), contact: fd.get("contact"), vehicle: fd.get("vehicle"), message: fd.get("notes") }) });
+          const j = await r.json();
+          if (j.success) this.setState({ sent: true, sending: false });
+          else this.setState({ sending: false, error: "Could not send. Please call or WhatsApp us on 0466 251 313." });
+        } catch (err) { this.setState({ sending: false, error: "Could not send. Please call or WhatsApp us on 0466 251 313." }); }
+      },
       reset: () => this.setState({ sent: false }),
     };
   }
