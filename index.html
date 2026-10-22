@@ -188,23 +188,45 @@
     </div>
     <sc-if value="{{ formOpen }}" hint-placeholder-val="{{ true }}">
     <form onSubmit="{{ submit }}" style="display: grid; gap: 16px; background: color-mix(in srgb, var(--color-bg) 62%, transparent); border: 1px solid var(--color-divider); border-radius: 10px; padding: 28px">
+      <div aria-hidden="true" style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
       <label class="field" style="display: grid; gap: 6px">
-        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Name</span>
-        <input class="input" type="text" name="name" required="" placeholder="Your name">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Full name</span>
+        <input class="input" type="text" name="name" required="" minlength="2" maxlength="60" autocomplete="name" placeholder="Your name">
+      </label>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px">
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Mobile</span>
+        <input class="input" type="tel" name="phone" required="" inputmode="tel" autocomplete="tel" maxlength="16" pattern="^(\+?61|0)[2-478]( ?[0-9]){8}$" title="Australian number, e.g. 0466 251 313" placeholder="0400 000 000">
       </label>
       <label class="field" style="display: grid; gap: 6px">
-        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Phone or email</span>
-        <input class="input" type="text" name="contact" required="" placeholder="How we reach you">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Email</span>
+        <input class="input" type="email" name="email" required="" maxlength="80" autocomplete="email" placeholder="you@example.com">
+      </label>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 16px">
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Make</span>
+        <select class="input" name="make" required=""><option value="">Select</option><sc-for list="{{ makes }}" as="m" hint-placeholder-count="5"><option value="{{ m }}">{{ m }}</option></sc-for></select>
       </label>
       <label class="field" style="display: grid; gap: 6px">
-        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Vehicle</span>
-        <input class="input" type="text" name="vehicle" placeholder="Make, model, year">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Model</span>
+        <input class="input" type="text" name="model" required="" maxlength="30" placeholder="e.g. Corolla">
       </label>
       <label class="field" style="display: grid; gap: 6px">
-        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">More Info</span>
-        <textarea class="input" name="notes" rows="3" placeholder="What you need?                                                                                                                                                                 Exterior, interior, or both — and anything we should know"></textarea>
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Year</span>
+        <select class="input" name="year" required=""><option value="">Select</option><sc-for list="{{ years }}" as="y" hint-placeholder-count="5"><option value="{{ y }}">{{ y }}</option></sc-for></select>
       </label>
-      <button type="submit" class="btn btn-primary" style="justify-self: start; margin-top: 4px">Send request</button>
+      </div>
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Service</span>
+        <select class="input" name="service" required=""><option value="">Select a service</option><sc-for list="{{ services }}" as="sv" hint-placeholder-count="5"><option value="{{ sv.title }}">{{ sv.title }}</option></sc-for><option value="Not sure, advise me">Not sure, advise me</option></select>
+      </label>
+      <label class="field" style="display: grid; gap: 6px">
+        <span style="font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-neutral-300)">Anything we should know (optional)</span>
+        <textarea class="input" name="notes" rows="3" maxlength="400" placeholder="Condition of the car, add-ons you want, preferred day"></textarea>
+      </label>
+      <button type="submit" class="btn btn-primary" style="justify-self: start; margin-top: 4px">{{ sendLabel }}</button>
+      <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; line-height: 20px; color: var(--color-accent-200)">{{ errorText }}</span></sc-if>
     </form>
     </sc-if>
     <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
@@ -325,6 +347,9 @@
 const STD_EXC = ["Starting price is a rough estimate for small cars with light to medium detailing. Heavy detailing work incurs extra charges."];
 const QUOTE_EXC = ["Final price is confirmed after inspection."];
 const WEB3FORMS_KEY = "d6edaaec-b7fa-4b05-b5fa-c474d542ae38";
+const MAKES = ["Audi","BMW","BYD","Chevrolet","Ford","Genesis","Holden","Honda","Hyundai","Isuzu","Jeep","Kia","Land Rover","Lexus","Mazda","Mercedes-Benz","MG","Mitsubishi","Nissan","Porsche","Subaru","Suzuki","Tesla","Toyota","Volkswagen","Volvo","Other"];
+const YEARS = Array.from({ length: 2027 - 1989 }, (_, i) => String(2027 - i));
+const looksFake = (s) => { const t = s.toLowerCase(); if (/(.)\1{3,}/.test(t)) return true; if (/[^aeiouy\W\d_]{6,}/.test(t)) return true; return t.split(/[^a-z]+/).some((w) => w.length >= 4 && !/[aeiouy]/.test(w)); };
 const TERMS = [
   { h: "Quotes and pricing", p: "Starting prices are rough estimates for small cars with light to medium detailing. The final price is confirmed after inspection, and heavy detailing work incurs extra charges." },
   { h: "Bookings", p: "A booking is confirmed once we reply with a time. Please let us know as early as you can if you need to change or cancel." },
@@ -393,6 +418,7 @@ class Component extends DCLogic {
   state = { sent: false, open: -1, info: "", sending: false, error: "" };
   _key = (e) => { if (e.key === "Escape") this.setState({ open: -1, info: "" }); };
   componentDidMount() {
+    this._t0 = Date.now();
     document.addEventListener("keydown", this._key);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const els = Array.from(document.querySelectorAll("[data-reveal]"));
@@ -436,20 +462,31 @@ class Component extends DCLogic {
       sendLabel: this.state.sending ? "Sending…" : "Send request",
       hasError: !!this.state.error,
       errorText: this.state.error,
+      makes: MAKES, years: YEARS,
       submit: async (e) => {
         e.preventDefault();
         if (this.state.sending) return;
-        if (!WEB3FORMS_KEY) { this.setState({ error: "The form is not connected to email yet. Add your Web3Forms access key in the script." }); return; }
+        const fail = (m) => this.setState({ sending: false, error: m });
+        if (!WEB3FORMS_KEY) return fail("The form is not connected to email yet. Add your Web3Forms access key in the script.");
         const fd = new FormData(e.target);
+        const v = (k) => String(fd.get(k) || "").trim().replace(/\s+/g, " ");
+        if (v("website")) { this.setState({ sent: true }); return; }
+        if (Date.now() - (this._t0 || 0) < 4000) return fail("Please take a moment to check your details, then send again.");
+        const name = v("name"), model = v("model"), notes = v("notes");
+        if (!/^[A-Za-z][A-Za-z' .-]{1,59}$/.test(name) || looksFake(name)) return fail("Please enter your real name.");
+        if (looksFake(model) || !/[A-Za-z0-9]/.test(model)) return fail("Please enter a valid car model.");
+        if (notes && (looksFake(notes) || /https?:|www\.|\.(com|net|ru|xyz|top)\b/i.test(notes))) return fail("Please describe the job in plain words, without links.");
+        const phone = v("phone").replace(/ /g, ""), email = v("email");
+        const car = [v("year"), v("make"), model].join(" ");
         this.setState({ sending: true, error: "" });
         try {
-          const r = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: "New quote request from " + fd.get("name"), from_name: "Astar Auto website", name: fd.get("name"), contact: fd.get("contact"), vehicle: fd.get("vehicle"), message: fd.get("notes") }) });
+          const r = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify({ access_key: WEB3FORMS_KEY, subject: "Quote request: " + v("service") + " - " + car, from_name: "Astar Auto website", replyto: email, botcheck: "", name, phone, email, vehicle: car, service: v("service"), message: notes || "(none)" }) });
           const j = await r.json();
           if (j.success) this.setState({ sent: true, sending: false });
-          else this.setState({ sending: false, error: "Could not send. Please call or WhatsApp us on 0466 251 313." });
-        } catch (err) { this.setState({ sending: false, error: "Could not send. Please call or WhatsApp us on 0466 251 313." }); }
+          else fail("Could not send. Please call or WhatsApp us on 0466 251 313.");
+        } catch (err) { fail("Could not send. Please call or WhatsApp us on 0466 251 313."); }
       },
-      reset: () => this.setState({ sent: false }),
+      reset: () => { this._t0 = Date.now(); this.setState({ sent: false, error: "" }); },
     };
   }
 }
