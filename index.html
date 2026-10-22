@@ -83,7 +83,7 @@
       </div>
     </div>
     <div data-reveal="" style="margin-top: 56px; position: relative">
-      <span class="lighten" style="display: block; border-radius: var(--radius-md, 8px); overflow: hidden"><image-slot id="astar-auto-hero" shape="rect" style="width: 100%; aspect-ratio: 21 / 9" placeholder="Drop a wide hero photo — a detailed car on a dark background"></image-slot></span>
+      <span class="lighten" style="display: block; border-radius: var(--radius-md, 8px); overflow: hidden"><image-slot id="astar-auto-hero" src="/assets/services/hero.webp" shape="rect" style="width: 100%; aspect-ratio: 21 / 9" placeholder="Drop a wide hero photo — a detailed car on a dark background"></image-slot></span>
     </div>
   </section>
 
@@ -125,7 +125,7 @@
         <li><span style="color: var(--color-accent); margin-right: 10px">—</span>PlayStation</li>
       </ul>
     </div>
-    <span class="lighten" style="display: block; border-radius: 8px; overflow: hidden"><image-slot id="astar-auto-about-1" shape="rect" style="width: 100%; aspect-ratio: 4 / 5" placeholder="Drop a photo of the work"></image-slot></span>
+    <span class="lighten" style="display: block; border-radius: 8px; overflow: hidden"><image-slot id="astar-auto-about-1" src="/assets/services/about-1.webp" shape="rect" style="width: 100%; aspect-ratio: 4 / 5" placeholder="Drop a photo of the work"></image-slot></span>
   </section>
 
 </div>
@@ -232,8 +232,8 @@
     <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
     <div style="background: color-mix(in srgb, var(--color-bg) 62%, transparent); border: 1px solid var(--color-accent); border-radius: 10px; padding: 40px 28px; display: grid; gap: 14px; align-content: start">
       <span style="display: block; width: 40px; height: 1px; background: var(--color-accent)"></span>
-      <h3 style="font-family: var(--font-heading); font-weight: 500; font-size: 24px; line-height: 30px; margin: 0">Request received</h3>
-      <p style="margin: 0; font-size: 15px; line-height: 24px; color: var(--color-neutral-200)">We'll come back with a fixed price shortly. If it's urgent, call 0466 251 313.</p>
+      <h3 style="font-family: var(--font-heading); font-weight: 500; font-size: 24px; line-height: 30px; margin: 0">Thank you!</h3>
+      <p style="margin: 0; font-size: 15px; line-height: 24px; color: var(--color-neutral-200)">We'll will be in touch shortly. If it's urgent, call 0466 251 313.</p>
       <button type="button" class="btn btn-ghost" onClick="{{ reset }}" style="justify-self: start; margin-top: 8px">Send another</button>
     </div>
     </sc-if>
@@ -244,7 +244,7 @@
 <div onClick="{{ close }}" style="position: fixed; inset: 0; z-index: 100; display: flex; align-items: flex-start; justify-content: center; padding: clamp(12px, 4vh, 48px) clamp(12px, 3vw, 32px); background: color-mix(in srgb, var(--color-bg) 82%, black); overflow-y: auto; backdrop-filter: blur(6px)">
   <div role="dialog" aria-modal="true" aria-label="{{ active.title }}" onClick="{{ stop }}" style="position: relative; width: 100%; max-width: 920px; background: var(--color-bg); border: 1px solid var(--color-divider); border-radius: 12px; box-shadow: var(--shadow-lg); overflow: hidden">
     <button type="button" onClick="{{ close }}" aria-label="Close" style="position: absolute; top: 14px; right: 14px; z-index: 2; appearance: none; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--color-divider); background: color-mix(in srgb, var(--color-bg) 80%, transparent); color: var(--color-text); cursor: pointer; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(6px)" style-hover="border-color: var(--color-accent)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
-    <span style="display: block; border-bottom: 1px solid var(--color-divider)"><image-slot id="{{ active.slotId }}" shape="rect" style="width: 100%; aspect-ratio: 21 / 9" placeholder="Drop a photo for this service"></image-slot></span>
+    <sc-if value="{{ active.hasImg }}" hint-placeholder-val="{{ false }}"><span style="display: block; border-bottom: 1px solid var(--color-divider)"><img src="{{ active.img }}" alt="{{ active.title }}" style="{{ active.imgStyle }}"></span></sc-if>
     <div style="padding: clamp(22px, 4vw, 40px)">
       <span style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap">
         <span style="font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Service {{ active.no }}</span>
@@ -412,7 +412,8 @@ const SERVICES = [
   { title: "Concrete Removal", price: "Request quote", blurb: "Concrete splatter safely lifted from paint, glass and trim.",
     inc: ["Inspection of affected panels","Careful concrete removal","Polish of the treated area"], exc: [quote, "Paint already damaged by concrete may need repair."], add: ["Exterior detail","Stonechip repair","Ceramic paint protection"] },
 ];
-SERVICES.forEach((s, i) => { s.incItems = s.inc.map((t) => String(t).startsWith("# ") ? { text: t.slice(2), mark: "", style: "display: block; margin-top: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-300)", textStyle: "display: block" } : { text: String(t), mark: "\u2014", style: "display: flex; gap: 10px", textStyle: "display: block" }); s.no = String(i + 1).padStart(2, "0"); s.slotId = "astar-auto-svc-" + s.no; s.hasInc = s.incItems.length > 0; s.hasExc = s.exc.length > 0; s.hasAdd = s.add.length > 0; });
+const SVC_IMG = {"10":40,"14":50,"16":50,"11":0,"12":50,"13":89,"15":100,"17":29.5,"01":100,"02":25.5,"03":20.9,"07":50,"04":49.5,"08":50,"05":0,"06":0,"09":100};
+SERVICES.forEach((s, i) => { s.incItems = s.inc.map((t) => String(t).startsWith("# ") ? { text: t.slice(2), mark: "", style: "display: block; margin-top: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-300)", textStyle: "display: block" } : { text: String(t), mark: "\u2014", style: "display: flex; gap: 10px", textStyle: "display: block" }); s.no = String(i + 1).padStart(2, "0"); s.slotId = "astar-auto-svc-" + s.no; s.hasImg = s.no in SVC_IMG; s.noImg = !s.hasImg; s.img = "assets/services/svc-" + s.no + ".webp"; s.imgStyle = "display: block; width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% " + (SVC_IMG[s.no] ?? 50) + "%"; s.hasInc = s.incItems.length > 0; s.hasExc = s.exc.length > 0; s.hasAdd = s.add.length > 0; });
 
 class Component extends DCLogic {
   state = { sent: false, open: -1, info: "", sending: false, error: "" };
