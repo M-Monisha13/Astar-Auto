@@ -235,7 +235,7 @@
         <div>
           <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Inclusions</span>
           <ul style="margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; font-size: 14px; line-height: 21px; color: var(--color-neutral-200)">
-            <sc-for list="{{ active.incItems }}" as="t" hint-placeholder-count="5"><li style="display: flex; gap: 10px"><span style="color: var(--color-accent)">—</span><span>{{ t }}</span></li></sc-for>
+            <sc-for list="{{ active.incItems }}" as="t" hint-placeholder-count="5"><li style="{{ t.style }}"><span style="color: var(--color-accent)">{{ t.mark }}</span><span style="{{ t.textStyle }}">{{ t.text }}</span></li></sc-for>
           </ul>
         </div>
         </sc-if>
