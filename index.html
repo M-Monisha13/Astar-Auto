@@ -235,7 +235,7 @@
         <div>
           <span style="display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent)">Inclusions</span>
           <ul style="margin: 16px 0 0; padding: 0; list-style: none; display: grid; gap: 9px; font-size: 14px; line-height: 21px; color: var(--color-neutral-200)">
-            <sc-for list="{{ active.inc }}" as="t" hint-placeholder-count="5"><li style="display: flex; gap: 10px"><span style="color: var(--color-accent)">—</span><span>{{ t }}</span></li></sc-for>
+            <sc-for list="{{ active.incItems }}" as="t" hint-placeholder-count="5"><li style="display: flex; gap: 10px"><span style="color: var(--color-accent)">—</span><span>{{ t }}</span></li></sc-for>
           </ul>
         </div>
         </sc-if>
@@ -387,7 +387,7 @@ const SERVICES = [
   { title: "Concrete Removal", price: "Request quote", blurb: "Concrete splatter safely lifted from paint, glass and trim.",
     inc: ["Inspection of affected panels","Careful concrete removal","Polish of the treated area"], exc: [quote, "Paint already damaged by concrete may need repair."], add: ["Exterior detail","Stonechip repair","Ceramic paint protection"] },
 ];
-SERVICES.forEach((s, i) => { s.inc = s.inc.map((t) => t.startsWith("# ") ? { text: t.slice(2), mark: "", style: "display: block; margin-top: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-300)", textStyle: "display: block" } : { text: t, mark: "\u2014", style: "display: flex; gap: 10px", textStyle: "display: block" }); s.no = String(i + 1).padStart(2, "0"); s.slotId = "astar-auto-svc-" + s.no; s.hasInc = s.inc.length > 0; s.hasExc = s.exc.length > 0; s.hasAdd = s.add.length > 0; });
+SERVICES.forEach((s, i) => { s.incItems = s.inc.map((t) => String(t).startsWith("# ") ? { text: t.slice(2), mark: "", style: "display: block; margin-top: 8px; font-size: 11px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--color-accent-300)", textStyle: "display: block" } : { text: String(t), mark: "\u2014", style: "display: flex; gap: 10px", textStyle: "display: block" }); s.no = String(i + 1).padStart(2, "0"); s.slotId = "astar-auto-svc-" + s.no; s.hasInc = s.incItems.length > 0; s.hasExc = s.exc.length > 0; s.hasAdd = s.add.length > 0; });
 
 class Component extends DCLogic {
   state = { sent: false, open: -1, info: "", sending: false, error: "" };
